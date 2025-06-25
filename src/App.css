@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
+
 .App {
   text-align: center;
 }
@@ -146,6 +149,30 @@ h1 {
   letter-spacing: -1px;
 }
 
+.brand-title {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: clamp(2.2rem, 4vw, 3.5rem) !important;
+  font-weight: 900;
+  letter-spacing: 2px;
+  padding: 0.2em 0.7em;
+  border-radius: 18px;
+  background: linear-gradient(90deg, #b3cfff 0%, #2196f3 40%, #00bcd4 70%, #e3f2fd 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  text-shadow:
+    0 1px 2px #2196f366,
+    0 0.5px 0 #b3cfff,
+    0 0.5px 0 #00bcd4;
+}
+
+@keyframes text-shine {
+  0% { text-shadow: 0 0 8px #fff176, 0 0 16px #fff176, 0 0 32px #ff4a5c, 0 0 48px #ff8a65; }
+  50% { text-shadow: 0 0 24px #fff, 0 0 32px #fff176, 0 0 64px #ff4a5c, 0 0 96px #ff8a65; }
+  100% { text-shadow: 0 0 8px #fff176, 0 0 16px #fff176, 0 0 32px #ff4a5c, 0 0 48px #ff8a65; }
+}
+
 .top-bar {
   width: 100%;
   display: flex;
@@ -209,7 +236,7 @@ body, .App-header {
   border-bottom: 1.5px solid #2c3440;
 }
 
-.user-profile, .friend-list, .card-message {
+.user-profile, .friend-list, .card-message, .login-card {
   background: #232a36;
   color: #fff;
   box-shadow: 0 2px 16px #0004;
@@ -223,7 +250,7 @@ body, .App-header {
   color: #fff !important;
 }
 
-.send-msg-btn {
+.send-msg-btn, .login-form button[type="submit"] {
   background: linear-gradient(135deg, #4A90E2 60%, #7ED6A7 100%);
   color: #fff;
   border: none;
@@ -231,12 +258,16 @@ body, .App-header {
   padding: 8px 18px;
   font-size: 1rem;
   font-weight: 500;
-  margin-left: 12px;
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 12px;
   cursor: pointer;
   box-shadow: 0 2px 8px #4A90E220;
   transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
   outline: none;
-  display: inline-block;
+  display: block;
+  width: 100%;
+  text-align: center;
 }
 
 .send-msg-btn:hover {
@@ -388,6 +419,237 @@ body, .App-header {
   box-sizing: border-box;
 }
 
+.login-card {
+  background: #232a36;
+  color: #fff;
+  border-radius: 18px;
+  padding: 32px 24px 24px 24px;
+  margin: 0 auto;
+  max-width: 340px;
+  box-shadow: 0 2px 16px #0004;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.login-title {
+  text-align: center;
+  width: 100%;
+  display: block;
+  margin-top: 0.2em;
+  margin-bottom: 0.5em;
+  font-size: 1.08rem;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  background: none;
+  z-index: 2;
+  position: relative;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.login-input {
+  background: #353e4a;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.login-input:focus {
+  outline: 2px solid #4A90E2;
+}
+
+.login-form label {
+  font-size: 0.92rem;
+  margin-bottom: 0.5em;
+  margin-top: 0.2em;
+}
+
+.msg-list-section {
+  background: #232a36;
+  border-radius: 18px;
+  margin: 32px auto 16px auto;
+  max-width: 370px;
+  box-shadow: 0 2px 16px #0004;
+  padding: 0 0 8px 0;
+}
+.msg-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px 10px 24px;
+  border-bottom: 1px solid #4A90E2;
+}
+.msg-list-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+}
+.msg-list-requests {
+  font-size: 1rem;
+  color: #fff;
+  opacity: 0.7;
+  cursor: pointer;
+  font-weight: 500;
+}
+.msg-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.msg-list-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px 14px 18px;
+  border-bottom: 1px solid #353e4a;
+  cursor: pointer;
+  transition: background 0.15s;
+  position: relative;
+}
+.msg-list-item:last-child {
+  border-bottom: none;
+}
+.msg-list-item:hover {
+  background: #353e4a;
+}
+.msg-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4A90E2 60%, #7ED6A7 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  color: #fff;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+.msg-list-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.msg-list-name-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.msg-list-name {
+  font-size: 1.08rem;
+  font-weight: 600;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.msg-list-time {
+  font-size: 0.95rem;
+  color: #fff;
+  opacity: 0.6;
+  margin-left: 8px;
+  white-space: nowrap;
+}
+.msg-list-preview {
+  font-size: 0.98rem;
+  color: #fff;
+  opacity: 0.8;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.msg-list-me {
+  font-weight: 600;
+  color: #7ED6A7;
+}
+.msg-list-dot {
+  width: 10px;
+  height: 10px;
+  background: #4A90E2;
+  border-radius: 50%;
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.msg-list-empty {
+  opacity: 0.5;
+  font-style: italic;
+}
+
+.app-container {
+  min-height: 100vh;
+  position: relative;
+}
+
+.logout-btn {
+  position: fixed;
+  left: 24px;
+  bottom: 24px;
+  background: #4A90E2;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 28px;
+  font-size: 1.08rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px #4A90E220;
+  cursor: pointer;
+  z-index: 100;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.logout-btn:hover {
+  background: #7ED6A7;
+  color: #222;
+}
+
+.login-title, .brand-title {
+  text-align: center;
+  width: 100%;
+  display: block;
+}
+
+.login-form label {
+  font-size: 0.92rem;
+  margin-bottom: 0.5em;
+  margin-top: 0.2em;
+}
+
+.switch-auth-btn {
+  background: none;
+  color: #7ED6A7;
+  border: none;
+  font-size: 1rem;
+  margin-top: 16px;
+  cursor: pointer;
+  text-align: center;
+  width: 100%;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.switch-auth-btn:hover {
+  color: #4A90E2;
+}
+
 @media (prefers-color-scheme: dark) {
   body, .App-header {
     background: #222c36;
@@ -397,7 +659,7 @@ body, .App-header {
     background: #232a36;
     border-bottom: 1.5px solid #2c3440;
   }
-  .user-profile, .friend-list, .card-message {
+  .user-profile, .friend-list, .card-message, .login-card {
     background: #232a36;
     color: #fff;
     box-shadow: 0 2px 16px #0004;

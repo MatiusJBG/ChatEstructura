@@ -1,0 +1,145 @@
+.auth-transition-container {
+  position: absolute;
+  top: 78%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 350px;
+  min-height: 420px;
+  margin: 0 auto;
+  perspective: 1200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.auth-form {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  transition: transform 0.7s cubic-bezier(.68,-0.55,.27,1.55), opacity 0.7s;
+  will-change: transform, opacity;
+}
+.login-form-anim {
+  z-index: 2;
+}
+.register-form-anim {
+  z-index: 1;
+}
+.auth-transition-container.show-login .login-form-anim {
+  transform: rotateY(0deg);
+  opacity: 1;
+  pointer-events: auto;
+}
+.auth-transition-container.show-login .register-form-anim {
+  transform: rotateY(180deg);
+  opacity: 0;
+  pointer-events: none;
+}
+.auth-transition-container.show-register .login-form-anim {
+  transform: rotateY(-180deg);
+  opacity: 0;
+  pointer-events: none;
+}
+.auth-transition-container.show-register .register-form-anim {
+  transform: rotateY(0deg);
+  opacity: 1;
+  pointer-events: auto;
+}
+.login-card {
+  background: linear-gradient(135deg, #23272f 0%, #181a20 100%);
+  border-radius: 18px;
+  box-shadow: 0 6px 32px rgba(25, 118, 210, 0.13);
+  padding: 36px 30px 28px 30px;
+  width: 100%;
+  max-width: 350px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 420px;
+  box-sizing: border-box;
+}
+.login-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.login-input {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #333a47;
+  margin-bottom: 10px;
+  font-size: 1rem;
+  background: #23272f;
+  color: #e3f2fd;
+  transition: border 0.2s;
+}
+.login-input:focus {
+  border: 1.5px solid #90caf9;
+  outline: none;
+}
+.brand-title {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: clamp(2.2rem, 4vw, 3.5rem) !important;
+  font-weight: 900;
+  letter-spacing: 2px;
+  padding: 0.2em 0.7em;
+  border-radius: 18px;
+  background: linear-gradient(90deg, #b3cfff 0%, #2196f3 40%, #00bcd4 70%, #e3f2fd 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  text-shadow:
+    0 1px 2px #2196f366,
+    0 0.5px 0 #b3cfff,
+    0 0.5px 0 #00bcd4;
+}
+.switch-auth-btn {
+  background: none;
+  border: none;
+  color: #90caf9;
+  margin-top: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+.switch-auth-btn:hover {
+  color: #42a5f5;
+}
+.send-msg-btn {
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 0;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+  box-shadow: 0 2px 8px #0d1117;
+}
+.send-msg-btn:hover {
+  background: #1565c0;
+}
+.login-title {
+  margin-top: 0px;
+  margin-bottom: 18px;
+  color: #90caf9;
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-align: center;
+}
+.register-form-anim .brand-title {
+  margin-top: 32px;
+  margin-bottom: 0px;
+}
+@keyframes text-shine {
+  0% { text-shadow: 0 0 8px #fff176, 0 0 16px #fff176, 0 0 32px #ff4a5c, 0 0 48px #ff8a65; }
+  50% { text-shadow: 0 0 24px #fff, 0 0 32px #fff176, 0 0 64px #ff4a5c, 0 0 96px #ff8a65; }
+  100% { text-shadow: 0 0 8px #fff176, 0 0 16px #fff176, 0 0 32px #ff4a5c, 0 0 48px #ff8a65; }
+}
