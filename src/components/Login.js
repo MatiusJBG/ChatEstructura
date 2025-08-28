@@ -13,7 +13,7 @@ function Login({ onLogin, onSwitchToRegister }) {
 
   return (
     <div className="login-card">
-      <div className="brand-title">FI-SEXY</div>
+  <div className="brand-title">FI-CHAT</div>
       <form onSubmit={handleSubmit} className="login-form">
         <label htmlFor="login-identifier">Correo electrónico o nombre de usuario</label>
         <input

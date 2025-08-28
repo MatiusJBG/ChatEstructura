@@ -14,7 +14,7 @@ function Register({ onRegister, onSwitchToLogin }) {
 
   return (
     <div className="login-card">
-      <div className="brand-title">FI-SEXY</div>
+  <div className="brand-title">FI-CHAT</div>
       <h2 className="login-title">Crear cuenta</h2>
       <form onSubmit={handleSubmit} className="login-form">
         <label htmlFor="register-name">Nombre</label>

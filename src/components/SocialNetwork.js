@@ -1,14 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import PostBox from './PostBox';
+import FriendList from './FriendList';
+import MessageList from './MessageList';
 import './PostBox.css';
 
 function SocialNetwork({ user, onLogout }) {
   const [loading, setLoading] = useState(true);
-
-  // Estados para simular acciones
   const [section, setSection] = useState('home');
+  const [friends, setFriends] = useState([
+    { id: 1, name: 'Ana' },
+    { id: 2, name: 'Luis' },
+    { id: 3, name: 'Carlos' }
+  ]);
+  const [chats, setChats] = useState({});
+  const [selectedFriend, setSelectedFriend] = useState(null);
+  const [messageInput, setMessageInput] = useState('');
 
-  // Handlers conectados
   const handleShowProfile = () => setSection('profile');
   const handleShowFriends = () => setSection('friends');
   const handleAddFriend = () => setSection('add-friend');
@@ -17,6 +24,26 @@ function SocialNetwork({ user, onLogout }) {
   useEffect(() => {
     setLoading(false);
   }, []);
+
+  const handleSelectChat = (friend) => {
+    setSelectedFriend(friend);
+    setSection('messages');
+  };
+
+  const handleSendChatMessage = () => {
+    if (!selectedFriend || !messageInput.trim()) return;
+    setChats(prev => {
+      const prevMsgs = prev[selectedFriend.id] || [];
+      return {
+        ...prev,
+        [selectedFriend.id]: [
+          ...prevMsgs,
+          { text: messageInput, fromMe: true, time: new Date().toLocaleTimeString(), read: true }
+        ]
+      };
+    });
+    setMessageInput('');
+  };
 
   if (loading) return <p>Cargando...</p>;
 
@@ -68,14 +95,43 @@ function SocialNetwork({ user, onLogout }) {
       </div>
       {/* Contenido principal */}
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', minWidth: 0, width: '100%' }}>
-        <div className="brand-title" style={{ marginTop: 32, marginBottom: 24, fontSize: 'clamp(1.5rem, 3vw, 2.5rem)' }}>FI-SEXY</div>
+  <div className="brand-title" style={{ marginTop: 32, marginBottom: 24, fontSize: 'clamp(1.5rem, 3vw, 2.5rem)' }}>FI-CHAT</div>
         <div style={{ width: '100%', maxWidth: 600, flex: '0 1 auto', padding: '0 2vw' }}>
           {/* Renderizado condicional de secciones */}
           {section === 'home' && <PostBox user={user} />}
           {section === 'profile' && <div style={{color:'#fff'}}>Aquí va el perfil del usuario</div>}
-          {section === 'friends' && <div style={{color:'#fff'}}>Aquí va la lista de amigos</div>}
+          {section === 'friends' && (
+            <FriendList friends={friends} onSendMessage={handleSelectChat} />
+          )}
           {section === 'add-friend' && <div style={{color:'#fff'}}>Aquí va el formulario para añadir amigo</div>}
-          {section === 'messages' && <div style={{color:'#fff'}}>Aquí va la sección de mensajes</div>}
+          {section === 'messages' && (
+            <div style={{color:'#fff', display:'flex', flexDirection:'column', alignItems:'center'}}>
+              <MessageList chats={chats} friends={friends} onSelectChat={handleSelectChat} />
+              {selectedFriend && (
+                <div style={{marginTop:24, width:'100%', maxWidth:400, background:'#222', borderRadius:8, padding:16}}>
+                  <h4 style={{color:'#fff', marginBottom:8}}>Chat con {selectedFriend.name}</h4>
+                  <div style={{minHeight:80, maxHeight:200, overflowY:'auto', background:'#181a20', borderRadius:6, padding:8, marginBottom:12}}>
+                    {(chats[selectedFriend.id] || []).map((msg, idx) => (
+                      <div key={idx} style={{textAlign: msg.fromMe ? 'right' : 'left', marginBottom:6}}>
+                        <span style={{background: msg.fromMe ? '#4a90e2' : '#333', color:'#fff', borderRadius:12, padding:'6px 12px', display:'inline-block'}}>{msg.text}</span>
+                        <span style={{fontSize:10, color:'#aaa', marginLeft:8}}>{msg.time}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div style={{display:'flex', gap:8}}>
+                    <input
+                      type="text"
+                      value={messageInput}
+                      onChange={e => setMessageInput(e.target.value)}
+                      placeholder="Escribe un mensaje..."
+                      style={{flex:1, borderRadius:6, border:'1px solid #444', padding:'8px', background:'#181a20', color:'#fff'}}
+                    />
+                    <button onClick={handleSendChatMessage} style={{background:'#4a90e2', color:'#fff', border:'none', borderRadius:6, padding:'8px 16px', fontWeight:600}}>Enviar</button>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </div>
